@@ -60,8 +60,8 @@ void *connection_handler(void* sock) {
 	while((readSize = read(csock, buf, sizeof(buf))) != 0) {
 		if (sockList[number] == 0)
 			sockList[number] = csock;
-		printf("CSock ID: %d\n", csock);
-		printf("Read Message: %s\n", buf);
+		printf("Sender socket id: %d\n", csock);
+		printf("Read message: %s\n", buf);
 
 		for (int i = 0; i < 100; i++) {
 			if (sockList[i] != 0) {
@@ -84,7 +84,7 @@ void *connection_handler(void* sock) {
 
 	if (readSize == 0) {
 		printf("Client Disconnect!\n");
-		printf("CSock ID: %d\n", csock);
+		// printf("CSock ID: %d\n", csock);
 
 		int delete;
 		working--;

@@ -9,7 +9,7 @@
 int main() {
 	struct sockaddr_in server;
 	int sock, readSize;
-	char buf[] = "Hello";
+	char buf[] = "";
 	char sendBuf[256] = "";
 	char readBuf[256] = "";
 	pid_t pid;
@@ -22,8 +22,6 @@ int main() {
 
 	connect(sock, (struct sockaddr*)&server, sizeof(server));
 
-	write(sock, buf, sizeof(buf));
-
 	pid = fork();
 
 	while (1) {
@@ -33,14 +31,15 @@ int main() {
 		}
 		else if (pid == 0) {
 			read(sock, readBuf, sizeof(readBuf));
-			printf("RSock ID: %d\n", sock);
-			printf("Read Message: %s\n\n", readBuf);
+			printf("%s\n\n", readBuf);
+			// printf("RSock ID: %d\n", sock);
+			// printf("Read Message: %s\n\n", readBuf);
 		}
 		else if (pid > 0) {
 			if (scanf("%27[^\n]%*c", sendBuf) != EOF) {
 				write(sock, sendBuf, sizeof(sendBuf));
-				printf("WSock ID: %d \n", sock);
-				printf("Send Message: %s\n\n", sendBuf);
+				// printf("WSock ID: %d \n", sock);
+				// printf("Send Message: %s\n\n", sendBuf);
 			}
 			else {
 				printf("EOF!!\n");
@@ -51,7 +50,7 @@ int main() {
 	}
 	
 	close(sock);
-	printf("Client close");
+	printf("Client close\n");
 
 	return 0;
 }
